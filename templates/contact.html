@@ -1,0 +1,27 @@
+{%include 'includes/navbar.html'%}
+<h1 class="h1-responsive font-weight-bold text-center white-text my-3">
+    MICRO VIDEOS </h1>
+<h1 class="h1-responsive font-weight-bold text-center white-text my-5">
+    Contact </h1>
+<h1 class="white-text font-weight-bold text-center">{{msg}}</h1>
+<div class="container px-5 special-color-dark" style="font-size:20 px; font-weight: bold; border:15px; border-radius: 45px; border-style: inset; padding: 50px 50px; width: 500px;">
+    <form id="myForm" action="." class="md-form white-text" method="POST">
+        <h2 class="white-text font-weight-bold">{{ms}}</h2>
+        {%csrf_token%}
+        <div class="md-form">
+            Name:
+            <input type="text" name="name" placeholder="your name" class="form-control" />
+        </div>
+        Email:
+        <div class="md-form">
+            <input type="text" name="email" placeholder="your email" class="form-control" />
+        </div>
+        <div class="md-form">
+            Issue:
+            <textarea type="text" name="issue" placeholder="your issue" class="form-control md-textarea" rows="3"></textarea>
+        </div>
+        <div class="text-center">
+            <input type="submit" name='sub' class="btn primary-color black-text" value="SUMBIT" />
+        </div>
+    </form>
+</div>

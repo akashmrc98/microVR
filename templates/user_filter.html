@@ -1,0 +1,64 @@
+{%include 'includes/navbar.html'%}
+<h1 class="h1-responsive font-weight-bold text-center white-text my-3">
+    MICRO VIDEOS </h1>
+
+<center>
+    <form style="font-size:25px; font-weight:bold; width: 550px;" method="GET">
+        <br>
+        <div class="row">
+            <div class="col-8" style="margin-top:10px;"> {{form}}</div>
+            <div class="col-4"><input style="height:50px;" type="submit" class="btn primary-color black-text" value="Search!" /></div>
+        </div>
+
+    </form>
+</center>
+<p class="white-text font-weight-bold text-center">{{sus}}</p>
+{%if contacts%}
+<div class="container">
+    <div class="row special-color-dark" style="border:15px; border-style: inset; padding-left: -80px; padding-right: -80px; padding: 80px; border-radius: 35px;">
+
+        {% for contact in contacts %}
+        {{ contact.full_name|upper }}
+
+        {% endfor %}
+
+        <div class="pagination">
+            <div class="row px-5 py-5">
+                {%for c in contacts%}
+                <div class="col-6">
+
+                    <video name='demo' controls width='80%' height='60%' style="object-fit:cover" class="card">
+                        <source src="{{c.videos.url}}" type="video/mp4">
+                        </source>
+                    </video>
+                    <form method="POST">{%csrf_token%}
+                        <input type="hidden" value={{c.video_id}} name='video'>
+                        <input type="submit" class="btn primary-color" value=Subscribe></form>
+                    <h2 class="white-text font-weigth-bold">{{c.video_title}}</h2>
+                </div>
+                {%endfor%}
+            </div>
+        </div>
+        <span class="step-links">
+            {% if contacts.has_previous %}
+
+            <a href="?page=1&search={{search}}" class="btn primary-color">&laquo; first</a>
+            <a href="?page={{ contacts.previous_page_number }}&search={{search}}" class="btn primary-color">previous</a>
+            {% endif %}
+
+
+
+            {% if contacts.has_next %}
+            <a href="?page={{ contacts.next_page_number }}&search={{search}}" class="btn primary-color">next</a>
+            <a href="?page={{ contacts.paginator.num_pages }}&search={{search}}" class="btn primary-color">last
+                &raquo;</a>
+            {% endif %}
+        </span>
+
+        <br>
+        <span class="current white-text">
+            Page {{ contacts.number }} of {{ contacts.paginator.num_pages }}.
+        </span>
+        {%else%}
+        <h2 class="h1-responsive font-weight-bold text-center white-text my-3">{{msg}}</h2>
+        {%endif%}
